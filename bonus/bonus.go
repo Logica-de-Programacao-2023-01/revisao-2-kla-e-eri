@@ -1,11 +1,22 @@
 package bonus
 
-import "errors"
-
-// Você recebe uma lista de caminhos, onde `caminhos[i] = [cidadeAi, cidadeBi]` significa que existe um caminho direto que
-//vai de cidadeAi para cidadeBi. Retorne a cidade de destino, ou seja, a cidade sem nenhum caminho que saia dela.
+import "fmt"
 
 func Destino(caminhos [][2]string) (string, error) {
-	// Seu código aqui
-	return "", errors.New("Not implemented yet")
+	cidades := make(map[string]string)
+
+	for _, caminho := range caminhos {
+		origem := caminho[0]
+		destino := caminho[1]
+
+		cidades[origem] = destino
+	}
+
+	for _, destino := range cidades {
+		if _, ok := cidades[destino]; !ok {
+			return destino, nil
+		}
+	}
+
+	return "", fmt.Errorf("erro: nenhum destino encontrado")
 }
